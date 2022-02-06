@@ -2,30 +2,30 @@ package dev.evertonsavio.redisperformance.service.util;
 
 import reactor.core.publisher.Mono;
 
-public abstract class CacheTemplate<KEY, ENTITY> {
+public abstract class CacheTemplate<K, T> {
 
-    public Mono<ENTITY> get(KEY key){
-        return getFromCache(key)
-                .switchIfEmpty(getFromSource(key)
-                        .flatMap(e -> updateCache(key, e))
+    public Mono<T> get(K k){
+        return getFromCache(k)
+                .switchIfEmpty(getFromSource(k)
+                        .flatMap(e -> updateCache(k, e))
                 );
     }
 
-    public Mono<ENTITY> update(KEY key, ENTITY entity){
-        return updateSource(key, entity)
-                .flatMap(e -> deleteFromCache(key).thenReturn(e));
+    public Mono<T> update(K k, T t){
+        return updateSource(k, t)
+                .flatMap(e -> deleteFromCache(k).thenReturn(e));
     }
 
-    public Mono<Void> delete(KEY key){
-        return deleteFromSource(key)
-                .then(deleteFromCache(key));
+    public Mono<Void> delete(K k){
+        return deleteFromSource(k)
+                .then(deleteFromCache(k));
     }
 
-    abstract protected Mono<ENTITY> getFromSource(KEY key);
-    abstract protected Mono<ENTITY> getFromCache(KEY key);
-    abstract protected Mono<ENTITY> updateSource(KEY key, ENTITY entity);
-    abstract protected Mono<ENTITY> updateCache(KEY key, ENTITY entity);
-    abstract protected Mono<Void> deleteFromSource(KEY key);
-    abstract protected Mono<Void> deleteFromCache(KEY key);
+    abstract protected Mono<T> getFromSource(K k);
+    abstract protected Mono<T> getFromCache(K k);
+    abstract protected Mono<T> updateSource(K k, T t);
+    abstract protected Mono<T> updateCache(K k, T t);
+    abstract protected Mono<Void> deleteFromSource(K k);
+    abstract protected Mono<Void> deleteFromCache(K k);
 
 }
