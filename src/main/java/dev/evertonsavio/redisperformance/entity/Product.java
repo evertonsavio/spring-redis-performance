@@ -1,9 +1,16 @@
 package dev.evertonsavio.redisperformance.entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
+
+@Table
 public class Product {
 
+    @Id
     private Integer id;
+
     private String description;
+
     private double price;
 
     public Product() {

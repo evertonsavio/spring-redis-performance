@@ -18,7 +18,7 @@ public class ProductController {
         return this.productService.getProduct(id);
     }
 
-    @GetMapping("{id}")
+    @PutMapping("{id}")
     public Mono<Product> updateProduct(@PathVariable int id, @RequestBody Mono<Product> productMono){
         return this.productService.updateProduct(id, productMono);
     }
