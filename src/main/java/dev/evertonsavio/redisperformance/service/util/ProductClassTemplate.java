@@ -6,10 +6,9 @@ import org.redisson.api.RMapReactive;
 import org.redisson.api.RedissonReactiveClient;
 import org.redisson.codec.TypedJsonJacksonCodec;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-@Service
+//@Service
 public class ProductClassTemplate extends CacheTemplate<Integer, Product>{
 
     @Autowired
